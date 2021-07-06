@@ -27,15 +27,15 @@ do
         echo "DirID_$i/" >> dir_two_months
         echo "DirID_$i exsits, clearing up the clutter..."
         find $var -maxdepth 1 -type d | while read -r dir; do printf "%s:\t" "$dir"; find "$dir" -type f -ctime +60| wc -l; done >> $AUTOMATION/log_two_months
-#        find . -mindepth 1 -type f -ctime +60 | xargs rm 2> /dev/null
+        find . -mindepth 1 -type f -ctime +60 | xargs rm 2> /dev/null
     else echo "DirID_$i does not exist, nothing to delete"
     fi  
 done
-sleep 1
 }
 
 function 1m()
 {
+echo ''
 echo 'Deleting archives older than 1 month!'
 cd $FOLDER
 ls -ld */ > $AUTOMATION/file 
@@ -52,9 +52,9 @@ do
 done
 rm file > /dev/null
 for z in $(cat dir_one_month); do
-    echo "DirID_$z exists, clearing up the clutter..."
+    echo "$z exists, clearing up the clutter..."
     find $FOLDER/$z -maxdepth 1 -type d | while read -r dir; do printf "%s:\t" "$dir"; find "$dir" -type f -ctime +30| wc -l; done >> $AUTOMATION/log_one_month
-#    find . -mindepth 1 -type f -ctime +30 | xargs rm 2> /dev/null
+    find . -mindepth 1 -type f -ctime +30 | xargs rm 2> /dev/null
 done
 }
 
